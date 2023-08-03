@@ -36,6 +36,8 @@ async def upload_ligand_pdb(
 ):
     protein_pdb = convert_bytes_prody(protein_pdb_bytes)
     protein = protein_pdb.select("protein")
+    if protein is None:
+        protein = protein_pdb
     ligand = convert_bytes_prody(ligand_pdb_bytes)
     fixer = set_coordinates(protein, ligand)
     sim_status = minimize_energy(fixer)
